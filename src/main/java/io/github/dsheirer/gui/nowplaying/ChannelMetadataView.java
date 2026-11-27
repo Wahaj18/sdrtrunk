@@ -250,7 +250,12 @@ public class ChannelMetadataView extends VBox implements ChannelMetadataModel.Li
         if(row != null)
         {
             mUserSelectedChannel = mChannelMetadataModel.getChannelFromMetadata(row.getChannelMetadata());
-            processingChain = mChannelProcessingManager.getProcessingChain(mUserSelectedChannel);
+
+            //Null when the selection moves to the row of a channel that stopped along with the removed row
+            if(mUserSelectedChannel != null)
+            {
+                processingChain = mChannelProcessingManager.getProcessingChain(mUserSelectedChannel);
+            }
         }
 
         mSelectedProcessingChainBroadcaster.broadcast(processingChain);
